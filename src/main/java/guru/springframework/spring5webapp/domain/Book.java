@@ -1,6 +1,13 @@
 package guru.springframework.spring5webapp.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -13,6 +20,10 @@ public class Book {
     private Long id;
     private String title;
     private String isbn;
+
+    @ManyToOne
+    private Publisher publisher;
+
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors;
@@ -57,6 +68,14 @@ public class Book {
 
     public void setAuthors(Set<Author> authors) {
         this.authors = authors;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     @Override
